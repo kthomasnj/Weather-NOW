@@ -138,6 +138,13 @@ submitBtn.addEventListener('click', function () {
             day1TempEl.textContent = "Temperture: " + data.list[36].main.temp;
             day1WindEl.textContent = "Wind: " + data.list[36].wind.speed;
             day1HumidEl.textContent = "Humidity: " + data.list[36].main.humidity;
+
+            // Write City Weather Icon
+
+            var cityIconEl = document.querySelector('#city-info img');
+            var cityIcon = cityIconEl.textContent = "http://openweathermap.org/img/wn/" + data.list[0].weather[0].icon + "@2x.png";
+
+            cityIconEl.setAttribute("src", cityIcon);
         });
 });
 
