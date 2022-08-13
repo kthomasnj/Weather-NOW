@@ -9,14 +9,14 @@ var cityLatAttr = cityLatEl.getAttribute("lat");
 var cityLonEl = document.querySelector('#city-lon');
 var cityLonVal = document.querySelector('#city-lon').value;
 var cityLonAttr = cityLonEl.getAttribute("lon");
-var currentWeatherApi = `http://api.openweathermap.org/data/2.5/forecast?lat=${cityLatVal}&lon=${cityLonVal}&appid=${ApiKey}`;
+var currentWeatherApi = `https://api.openweathermap.org/data/2.5/forecast?lat=${cityLatVal}&lon=${cityLonVal}&appid=${ApiKey}`;
 
 
 submitBtn.addEventListener('click', function () {
     var city = document.querySelector('#city').value;
     var cityLat = document.querySelector('#city-lat');
     var cityLon = document.querySelector('#city-lon');
-    var cityAPI = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5&appid=" + ApiKey;    
+    var cityAPI = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5&appid=" + ApiKey;    
 
     fetch(cityAPI)
         .then(function (response) {
@@ -31,7 +31,7 @@ submitBtn.addEventListener('click', function () {
             var cityLonEl = document.querySelector('#city-lon');
             var cityLatAttr = cityLatEl.getAttribute("lat");
             var cityLonAttr = cityLonEl.getAttribute("lon");
-            var currentWeatherApi = `http://api.openweathermap.org/data/2.5/forecast?lat=${cityLatAttr}&lon=${cityLonAttr}&appid=${ApiKey}`;
+            var currentWeatherApi = `https://api.openweathermap.org/data/2.5/forecast?lat=${cityLatAttr}&lon=${cityLonAttr}&appid=${ApiKey}`;
 
             return fetch(currentWeatherApi);
         })
@@ -62,7 +62,7 @@ submitBtn.addEventListener('click', function () {
             var day1HumidEl = document.querySelector("#one-humid");
             var day1Day = data.list[0].dt_txt;
             var day1Conv = moment(day1Day).format("dddd");
-            var day1Icon = day1IconEl.textContent = "http://openweathermap.org/img/wn/" + data.list[0].weather[0].icon + "@2x.png";
+            var day1Icon = day1IconEl.textContent = "https://openweathermap.org/img/wn/" + data.list[0].weather[0].icon + "@2x.png";
         
             day1IconEl.setAttribute("src", day1Icon);
             day1DateEl.textContent = day1Conv; 
@@ -79,7 +79,7 @@ submitBtn.addEventListener('click', function () {
             var day1HumidEl = document.querySelector("#two-humid");
             var day2Day = data.list[9].dt_txt;
             var day2Conv = moment(day2Day).format("dddd");
-            var day2Icon = day2IconEl.textContent = "http://openweathermap.org/img/wn/" + data.list[9].weather[0].icon + "@2x.png";
+            var day2Icon = day2IconEl.textContent = "https://openweathermap.org/img/wn/" + data.list[9].weather[0].icon + "@2x.png";
 
         
             day2IconEl.setAttribute("src", day2Icon);
@@ -97,7 +97,7 @@ submitBtn.addEventListener('click', function () {
             var day1HumidEl = document.querySelector("#three-humid");
             var day3Day = data.list[18].dt_txt;
             var day3Conv = moment(day3Day).format("dddd");
-            var day3Icon = day1IconEl.textContent = "http://openweathermap.org/img/wn/" + data.list[18].weather[0].icon + "@2x.png";
+            var day3Icon = day1IconEl.textContent = "https://openweathermap.org/img/wn/" + data.list[18].weather[0].icon + "@2x.png";
         
             day1IconEl.setAttribute("src", day3Icon);
             day1DateEl.textContent = day3Conv;
@@ -114,7 +114,7 @@ submitBtn.addEventListener('click', function () {
             var day1HumidEl = document.querySelector("#four-humid");
             var day4Day = data.list[27].dt_txt;
             var day4Conv = moment(day4Day).format("dddd");
-            var day4Icon = day1IconEl.textContent = "http://openweathermap.org/img/wn/" + data.list[27].weather[0].icon + "@2x.png";
+            var day4Icon = day1IconEl.textContent = "https://openweathermap.org/img/wn/" + data.list[27].weather[0].icon + "@2x.png";
         
             day1IconEl.setAttribute("src", day4Icon);
             day1DateEl.textContent = day4Conv;
@@ -131,7 +131,7 @@ submitBtn.addEventListener('click', function () {
             var day1HumidEl = document.querySelector("#five-humid");
             var day5Day = data.list[36].dt_txt;
             var day5Conv = moment(day5Day).format("dddd");
-            var day5Icon = day1IconEl.textContent = "http://openweathermap.org/img/wn/" + data.list[36].weather[0].icon + "@2x.png";
+            var day5Icon = day1IconEl.textContent = "https://openweathermap.org/img/wn/" + data.list[36].weather[0].icon + "@2x.png";
         
             day1IconEl.setAttribute("src", day5Icon);
             day1DateEl.textContent = day5Conv;
@@ -142,7 +142,7 @@ submitBtn.addEventListener('click', function () {
             // Write City Weather Icon
 
             var cityIconEl = document.querySelector('#city-info img');
-            var cityIcon = cityIconEl.textContent = "http://openweathermap.org/img/wn/" + data.list[0].weather[0].icon + "@2x.png";
+            var cityIcon = cityIconEl.textContent = "https://openweathermap.org/img/wn/" + data.list[0].weather[0].icon + "@2x.png";
 
             cityIconEl.setAttribute("src", cityIcon);
         });
