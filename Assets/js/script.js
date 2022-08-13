@@ -62,8 +62,10 @@ submitBtn.addEventListener('click', function () {
             var day1TempEl = document.querySelector("#one-temp");
             var day1WindEl = document.querySelector("#one-wind");
             var day1HumidEl = document.querySelector("#one-humid");
-
-            day1DateEl.textContent = data.list[0].dt_txt;
+            var day1Day = data.list[0].dt_txt;
+            var day1Conv = moment(day1Day).format("dddd");
+        
+            day1DateEl.textContent = day1Conv;
             day1IconEl.textContent = "icon: " + data.list[0].weather[0].icon;
             day1TempEl.textContent = "Temperture: " + data.list[0].main.temp;
             day1WindEl.textContent = "Wind: " + data.list[0].wind.speed;
@@ -76,8 +78,10 @@ submitBtn.addEventListener('click', function () {
             var day1TempEl = document.querySelector("#two-temp");
             var day1WindEl = document.querySelector("#two-wind");
             var day1HumidEl = document.querySelector("#two-humid");
+            var day2Day = data.list[9].dt_txt;
+            var day2Conv = moment(day2Day).format("dddd");
 
-            day1DateEl.textContent = data.list[9].dt_txt;
+            day1DateEl.textContent = day2Conv;
             day1IconEl.textContent = "icon: " + data.list[9].weather[0].icon;
             day1TempEl.textContent = "Temperture: " + data.list[9].main.temp;
             day1WindEl.textContent = "Wind: " + data.list[9].wind.speed;
@@ -90,8 +94,10 @@ submitBtn.addEventListener('click', function () {
             var day1TempEl = document.querySelector("#three-temp");
             var day1WindEl = document.querySelector("#three-wind");
             var day1HumidEl = document.querySelector("#three-humid");
+            var day3Day = data.list[18].dt_txt;
+            var day3Conv = moment(day3Day).format("dddd");
 
-            day1DateEl.textContent = data.list[18].dt_txt;
+            day1DateEl.textContent = day3Conv;
             day1IconEl.textContent = "icon: " + data.list[18].weather[0].icon;
             day1TempEl.textContent = "Temperture: " + data.list[18].main.temp;
             day1WindEl.textContent = "Wind: " + data.list[18].wind.speed;
@@ -104,8 +110,10 @@ submitBtn.addEventListener('click', function () {
             var day1TempEl = document.querySelector("#four-temp");
             var day1WindEl = document.querySelector("#four-wind");
             var day1HumidEl = document.querySelector("#four-humid");
+            var day4Day = data.list[27].dt_txt;
+            var day4Conv = moment(day4Day).format("dddd");
 
-            day1DateEl.textContent = data.list[27].dt_txt;
+            day1DateEl.textContent = day4Conv;
             day1IconEl.textContent = "icon: " + data.list[27].weather[0].icon;
             day1TempEl.textContent = "Temperture: " + data.list[27].main.temp;
             day1WindEl.textContent = "Wind: " + data.list[27].wind.speed;
@@ -118,8 +126,10 @@ submitBtn.addEventListener('click', function () {
             var day1TempEl = document.querySelector("#five-temp");
             var day1WindEl = document.querySelector("#five-wind");
             var day1HumidEl = document.querySelector("#five-humid");
+            var day5Day = data.list[36].dt_txt;
+            var day5Conv = moment(day5Day).format("dddd");
 
-            day1DateEl.textContent = data.list[36].dt_txt;
+            day1DateEl.textContent = day5Conv;
             day1IconEl.textContent = "icon: " + data.list[36].weather[0].icon;
             day1TempEl.textContent = "Temperture: " + data.list[36].main.temp;
             day1WindEl.textContent = "Wind: " + data.list[36].wind.speed;
