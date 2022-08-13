@@ -18,7 +18,7 @@
             <span class="navbar-brand mb-0 h1 text-light">Weather Dashboard</span>
         </div>
     </nav>
-    <main class="d-xl-flex">
+    <main class="d-xl-flex p-5">
         <aside class="mx-5 d-flex flex-column">
             <h2>Search:</h2>
             <input id="city" class="m-2 p-2" placeholder="City">
@@ -32,7 +32,12 @@
                 <h1 id="city-main">City</h1>
             </section>
             <div class="weather-box p-3">
-                <div id="current-date">Current Date</div>
+                <h2 id="current-date">Current Date</h2>
+                <div id="weather-cond">Weather Conditions: --</div>
+                <div id="city-temp">Temp: --</div>
+                <div id="city-wind">Wind: --</div>
+                <div id="city-humidity">Humidity: --</div>
+                <div class="city-uv">UV Index: --</div>
             </div>
 
             <section>
@@ -41,7 +46,8 @@
                     <div class="row g-4">
                         <div class="col-md">
                             <div class="card custom-card bg-dark text-light">
-                                <div class="card-body">
+                                <div id="day-1" class="card-body">
+                                    <h2 class="date text-center">Day 1</h2>
                                     <div class="h2 mb-3 text-center">
                                         <i class="bi bi-laptop"></i>
                                     </div>
@@ -49,16 +55,17 @@
                                         <h3 class="card-title mb-3">
                                             <span></span>
                                         </h3>
-                                        <p>Temp: 73.72 &#176F</p>
-                                        <p>Wind: 9.53 MPH</p>
-                                        <p>Humidity: 66 %</p>
+                                        <p>Temp: --</p>
+                                        <p>Wind: --</p>
+                                        <p>Humidity: --</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md">
                             <div class="card custom-card bg-dark text-light">
-                                <div class="card-body">
+                                <div id="day-2" class="card-body">
+                                    <h2 class="date text-center">Day 2</h2>
                                     <div class="h2 mb-3 text-center">
                                         <i class="bi bi-laptop"></i>
                                     </div>
@@ -66,16 +73,17 @@
                                         <h3 class="card-title mb-3">
                                             <span></span>
                                         </h3>
-                                        <p>Temp: 73.72 &#176F</p>
-                                        <p>Wind: 9.53 MPH</p>
-                                        <p>Humidity: 66 %</p>
+                                        <p>Temp: --</p>
+                                        <p>Wind: --</p>
+                                        <p>Humidity: --</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md">
                             <div class="card custom-card bg-dark text-light">
-                                <div class="card-body">
+                                <div id="day-3" class="card-body">
+                                    <h2 class="date text-center">Day 3</h2>
                                     <div class="h2 mb-3 text-center">
                                         <i class="bi bi-laptop"></i>
                                     </div>
@@ -83,16 +91,17 @@
                                         <h3 class="card-title mb-3">
                                             <span></span>
                                         </h3>
-                                        <p>Temp: 73.72 &#176F</p>
-                                        <p>Wind: 9.53 MPH</p>
-                                        <p>Humidity: 66 %</p>
+                                        <p>Temp: --</p>
+                                        <p>Wind: --</p>
+                                        <p>Humidity: --</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md">
                             <div class="card custom-card bg-dark text-light">
-                                <div class="card-body">
+                                <div id="day-4" class="card-body">
+                                    <h2 class="date text-center">Day 4</h2>
                                     <div class="h2 mb-3 text-center">
                                         <i class="bi bi-laptop"></i>
                                     </div>
@@ -100,16 +109,17 @@
                                         <h3 class="card-title mb-3">
                                             <span></span>
                                         </h3>
-                                        <p>Temp: 73.72 &#176F</p>
-                                        <p>Wind: 9.53 MPH</p>
-                                        <p>Humidity: 66 %</p>
+                                        <p>Temp: --</p>
+                                        <p>Wind: --</p>
+                                        <p>Humidity: --</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md">
                             <div class="card custom-card bg-dark text-light">
-                                <div class="card-body">
+                                <div id="day-5" class="card-body">
+                                    <h2 class="date text-center">Day 5</h2>
                                     <div class="h2 mb-3 text-center">
                                         <i class="bi bi-laptop"></i>
                                     </div>
@@ -117,9 +127,9 @@
                                         <h3 class="card-title mb-3">
                                             <span></span>
                                         </h3>
-                                        <p>Temp: 73.72 &#176F</p>
-                                        <p>Wind: 9.53 MPH</p>
-                                        <p>Humidity: 66 %</p>
+                                        <p>Temp: --</p>
+                                        <p>Wind: --</p>
+                                        <p>Humidity: --</p>
                                     </div>
                                 </div>
                             </div>
@@ -132,12 +142,12 @@
     </main>
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
         crossorigin="anonymous"></script>
-    
+
     <script src="./assets/js/script.js"></script>
 </body>
 
