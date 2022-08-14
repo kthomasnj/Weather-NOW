@@ -1,4 +1,4 @@
-var ApiKey = "92a37c33dfa01af74edbf2b53382cef6";
+var ApiKey = "";
 var submitBtn = document.querySelector('#submit-button');
 var cityMain = document.querySelector('#city-main');
 var timeEl = document.querySelector('#current-date');
