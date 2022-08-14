@@ -16,7 +16,7 @@ submitBtn.addEventListener('click', function () {
     var city = document.querySelector('#city').value;
     var cityLat = document.querySelector('#city-lat');
     var cityLon = document.querySelector('#city-lon');
-    var cityAPI = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5&appid=" + ApiKey;    
+    var cityAPI = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5&appid=" + ApiKey;
 
     fetch(cityAPI)
         .then(function (response) {
@@ -36,12 +36,12 @@ submitBtn.addEventListener('click', function () {
             return fetch(currentWeatherApi);
         })
         .then(function (response) {
-           return response.json();
+            return response.json();
         }).then(function (data) {
             var weatherCond1El = document.querySelector("#weather-cond");
             var weatherTemp1El = document.querySelector("#city-temp");
             var weatherWind1El = document.querySelector("#city-wind");
-            var weatherHum1El = document.querySelector("#city-humidity");            
+            var weatherHum1El = document.querySelector("#city-humidity");
 
             // Curent Day
 
@@ -62,9 +62,9 @@ submitBtn.addEventListener('click', function () {
             var day1Day = data.list[0].dt_txt;
             var day1Conv = moment(day1Day).format("dddd");
             var day1Icon = day1IconEl.textContent = "https://openweathermap.org/img/wn/" + data.list[0].weather[0].icon + "@2x.png";
-        
+
             day1IconEl.setAttribute("src", day1Icon);
-            day1DateEl.textContent = day1Conv; 
+            day1DateEl.textContent = day1Conv;
             day1TempEl.textContent = "Temperture: " + data.list[0].main.temp + String.fromCharCode(176) + "F";
             day1WindEl.textContent = "Wind: " + data.list[0].wind.speed + " MPH";
             day1HumidEl.textContent = "Humidity: " + data.list[0].main.humidity + " %";
@@ -80,7 +80,7 @@ submitBtn.addEventListener('click', function () {
             var day2Conv = moment(day2Day).format("dddd");
             var day2Icon = day2IconEl.textContent = "https://openweathermap.org/img/wn/" + data.list[9].weather[0].icon + "@2x.png";
 
-        
+
             day2IconEl.setAttribute("src", day2Icon);
             day1DateEl.textContent = day2Conv;
             day1TempEl.textContent = "Temperture: " + data.list[9].main.temp + String.fromCharCode(176) + "F";
@@ -97,7 +97,7 @@ submitBtn.addEventListener('click', function () {
             var day3Day = data.list[18].dt_txt;
             var day3Conv = moment(day3Day).format("dddd");
             var day3Icon = day1IconEl.textContent = "https://openweathermap.org/img/wn/" + data.list[18].weather[0].icon + "@2x.png";
-        
+
             day1IconEl.setAttribute("src", day3Icon);
             day1DateEl.textContent = day3Conv;
             day1TempEl.textContent = "Temperture: " + data.list[18].main.temp + String.fromCharCode(176) + "F";
@@ -114,7 +114,7 @@ submitBtn.addEventListener('click', function () {
             var day4Day = data.list[27].dt_txt;
             var day4Conv = moment(day4Day).format("dddd");
             var day4Icon = day1IconEl.textContent = "https://openweathermap.org/img/wn/" + data.list[27].weather[0].icon + "@2x.png";
-        
+
             day1IconEl.setAttribute("src", day4Icon);
             day1DateEl.textContent = day4Conv;
             day1TempEl.textContent = "Temperture: " + data.list[27].main.temp + String.fromCharCode(176) + "F";
@@ -131,7 +131,7 @@ submitBtn.addEventListener('click', function () {
             var day5Day = data.list[36].dt_txt;
             var day5Conv = moment(day5Day).format("dddd");
             var day5Icon = day1IconEl.textContent = "https://openweathermap.org/img/wn/" + data.list[36].weather[0].icon + "@2x.png";
-        
+
             day1IconEl.setAttribute("src", day5Icon);
             day1DateEl.textContent = day5Conv;
             day1TempEl.textContent = "Temperture: " + data.list[36].main.temp + String.fromCharCode(176) + "F";
@@ -155,12 +155,13 @@ submitBtn.addEventListener('click', function () {
         })
         .then(function (response) {
             return response.json();
-         }).then(function (data) {
+        }).then(function (data) {
             var uv = data.value;
-            var weatherUv1El = document.querySelector("#city-uv");
+            var uvColorEl = document.querySelector('#uv-color');
 
-            weatherUv1El.textContent = "UV Index: " + uv;
-         })
+            uvColorEl.textContent = uv;
+            uvColorEl.setAttribute("uv", uv);
+        })
 });
 
 timeEl.textContent = currentTime;

@@ -31,12 +31,25 @@
     border-radius: 5px;
 }
 
+/* #city-uv {
+    border: 2px solid red;
+} */
+
+#uv-color {
+    background-color: red;
+    font-weight: 900;
+    padding: 5px;
+    min-width: 25%;
+}
+
+
+
 .custom-card {
     width: 225px;
 }
 
 #city-info {
-    max-width: 80%;
+    max-width: 40%;
 }
 
 aside {
