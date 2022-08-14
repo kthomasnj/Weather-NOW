@@ -9,7 +9,7 @@ var cityLatAttr = cityLatEl.getAttribute("lat");
 var cityLonEl = document.querySelector('#city-lon');
 var cityLonVal = document.querySelector('#city-lon').value;
 var cityLonAttr = cityLonEl.getAttribute("lon");
-var currentWeatherApi = `https://api.openweathermap.org/data/2.5/forecast?lat=${cityLatVal}&lon=${cityLonVal}&appid=${ApiKey}`;
+var currentWeatherApi = `https://api.openweathermap.org/data/2.5/forecast?lat=${cityLatVal}&lon=${cityLonVal}&units=imperial&appid=${ApiKey}`;
 
 
 submitBtn.addEventListener('click', function () {
@@ -31,25 +31,24 @@ submitBtn.addEventListener('click', function () {
             var cityLonEl = document.querySelector('#city-lon');
             var cityLatAttr = cityLatEl.getAttribute("lat");
             var cityLonAttr = cityLonEl.getAttribute("lon");
-            var currentWeatherApi = `https://api.openweathermap.org/data/2.5/forecast?lat=${cityLatAttr}&lon=${cityLonAttr}&appid=${ApiKey}`;
+            var currentWeatherApi = `https://api.openweathermap.org/data/2.5/forecast?lat=${cityLatAttr}&lon=${cityLonAttr}&units=imperial&appid=${ApiKey}`;
 
             return fetch(currentWeatherApi);
         })
-           .then(function (response) {
+        .then(function (response) {
            return response.json();
         }).then(function (data) {
             var weatherCond1El = document.querySelector("#weather-cond");
             var weatherTemp1El = document.querySelector("#city-temp");
             var weatherWind1El = document.querySelector("#city-wind");
-            var weatherHum1El = document.querySelector("#city-humidity");
-            var weatherUv1El = document.querySelector("#city-uv");
+            var weatherHum1El = document.querySelector("#city-humidity");            
 
             // Curent Day
 
             weatherCond1El.textContent = "Weather Conditions: " + data.list[0].weather[0].description;
-            weatherTemp1El.textContent = "Temperture: " + data.list[0].main.temp;
-            weatherWind1El.textContent = "Wind: " + data.list[0].wind.speed;
-            weatherHum1El.textContent = "Humidity: " + data.list[0].main.humidity;
+            weatherTemp1El.textContent = "Temperture: " + data.list[0].main.temp + String.fromCharCode(176) + "F";
+            weatherWind1El.textContent = "Wind: " + data.list[0].wind.speed + " MPH";
+            weatherHum1El.textContent = "Humidity: " + data.list[0].main.humidity + " %";
             // weatherUv1El.textContent = "UV Index: " + data.list[0].weather[0].id
 
             // Five-Day Forecast
@@ -66,9 +65,9 @@ submitBtn.addEventListener('click', function () {
         
             day1IconEl.setAttribute("src", day1Icon);
             day1DateEl.textContent = day1Conv; 
-            day1TempEl.textContent = "Temperture: " + data.list[0].main.temp;
-            day1WindEl.textContent = "Wind: " + data.list[0].wind.speed;
-            day1HumidEl.textContent = "Humidity: " + data.list[0].main.humidity;
+            day1TempEl.textContent = "Temperture: " + data.list[0].main.temp + String.fromCharCode(176) + "F";
+            day1WindEl.textContent = "Wind: " + data.list[0].wind.speed + " MPH";
+            day1HumidEl.textContent = "Humidity: " + data.list[0].main.humidity + " %";
 
             //Day 2
 
@@ -84,9 +83,9 @@ submitBtn.addEventListener('click', function () {
         
             day2IconEl.setAttribute("src", day2Icon);
             day1DateEl.textContent = day2Conv;
-            day1TempEl.textContent = "Temperture: " + data.list[9].main.temp;
-            day1WindEl.textContent = "Wind: " + data.list[9].wind.speed;
-            day1HumidEl.textContent = "Humidity: " + data.list[9].main.humidity;
+            day1TempEl.textContent = "Temperture: " + data.list[9].main.temp + String.fromCharCode(176) + "F";
+            day1WindEl.textContent = "Wind: " + data.list[9].wind.speed + " MPH";
+            day1HumidEl.textContent = "Humidity: " + data.list[9].main.humidity + " %";
 
             //Day 3
 
@@ -101,9 +100,9 @@ submitBtn.addEventListener('click', function () {
         
             day1IconEl.setAttribute("src", day3Icon);
             day1DateEl.textContent = day3Conv;
-            day1TempEl.textContent = "Temperture: " + data.list[18].main.temp;
-            day1WindEl.textContent = "Wind: " + data.list[18].wind.speed;
-            day1HumidEl.textContent = "Humidity: " + data.list[18].main.humidity;
+            day1TempEl.textContent = "Temperture: " + data.list[18].main.temp + String.fromCharCode(176) + "F";
+            day1WindEl.textContent = "Wind: " + data.list[18].wind.speed + " MPH";
+            day1HumidEl.textContent = "Humidity: " + data.list[18].main.humidity + " %";
 
             //Day 4
 
@@ -118,9 +117,9 @@ submitBtn.addEventListener('click', function () {
         
             day1IconEl.setAttribute("src", day4Icon);
             day1DateEl.textContent = day4Conv;
-            day1TempEl.textContent = "Temperture: " + data.list[27].main.temp;
-            day1WindEl.textContent = "Wind: " + data.list[27].wind.speed;
-            day1HumidEl.textContent = "Humidity: " + data.list[27].main.humidity;
+            day1TempEl.textContent = "Temperture: " + data.list[27].main.temp + String.fromCharCode(176) + "F";
+            day1WindEl.textContent = "Wind: " + data.list[27].wind.speed + " MPH";
+            day1HumidEl.textContent = "Humidity: " + data.list[27].main.humidity + " %";
 
             //Day 5
 
@@ -135,9 +134,9 @@ submitBtn.addEventListener('click', function () {
         
             day1IconEl.setAttribute("src", day5Icon);
             day1DateEl.textContent = day5Conv;
-            day1TempEl.textContent = "Temperture: " + data.list[36].main.temp;
-            day1WindEl.textContent = "Wind: " + data.list[36].wind.speed;
-            day1HumidEl.textContent = "Humidity: " + data.list[36].main.humidity;
+            day1TempEl.textContent = "Temperture: " + data.list[36].main.temp + String.fromCharCode(176) + "F";
+            day1WindEl.textContent = "Wind: " + data.list[36].wind.speed + " MPH";
+            day1HumidEl.textContent = "Humidity: " + data.list[36].main.humidity + " %";
 
             // Write City Weather Icon
 
@@ -145,7 +144,23 @@ submitBtn.addEventListener('click', function () {
             var cityIcon = cityIconEl.textContent = "https://openweathermap.org/img/wn/" + data.list[0].weather[0].icon + "@2x.png";
 
             cityIconEl.setAttribute("src", cityIcon);
-        });
+
+            var cityLatEl = document.querySelector('#city-lat');
+            var cityLonEl = document.querySelector('#city-lon');
+            var cityLatAttr = cityLatEl.getAttribute("lat");
+            var cityLonAttr = cityLonEl.getAttribute("lon");
+            var uvIndexApi = `https://api.openweathermap.org/data/2.5/uvi?lat=${cityLatAttr}&lon=${cityLonAttr}&appid=${ApiKey}`;
+
+            return fetch(uvIndexApi);
+        })
+        .then(function (response) {
+            return response.json();
+         }).then(function (data) {
+            var uv = data.value;
+            var weatherUv1El = document.querySelector("#city-uv");
+
+            weatherUv1El.textContent = "UV Index: " + uv;
+         })
 });
 
 timeEl.textContent = currentTime;
