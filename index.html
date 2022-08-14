@@ -26,13 +26,17 @@
             <span id="cities" class="m-2"></span>
             <input id="city-lat" type="text" class="m-2 p-1" placeholder="Latitude">
             <input id="city-lon" type="text" class="m-2 p-1" placeholder="Longitude">
+            <hr>
+            <h2 class="text-center">Recent Searches</h2>
+            <ul id="searches" class="d-flex flex-column"></ul>
+            <button id="clear">Clear Searches</button>
         </aside>
         <section class="flex-grow-1">
             <section class="d-flex justify-content-between align-items-center" id="city-info">
                 <h1 id="city-main">City</h1>
                 <img src=""></img>
             </section>
-            <div class="weather-box p-3">
+            <div class="weather-box p-3 bg-dark text-light">
                 <h2 id="current-date">Current Date</h2>
                 <div id="weather-cond">Weather Conditions: --</div>
                 <div id="city-temp">Temp: --</div>

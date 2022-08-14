@@ -18,6 +18,17 @@ submitBtn.addEventListener('click', function () {
     var cityLon = document.querySelector('#city-lon');
     var cityAPI = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5&appid=" + ApiKey;
 
+    //Save to favorites
+
+    var recentSearches = document.querySelector('#searches');
+    var citySearchEl = document.createElement('li');
+
+    recentSearches.appendChild(citySearchEl);
+    citySearchEl.setAttribute('class', 'btn btn-primary m-1');
+    citySearchEl.setAttribute('city', city);
+    citySearchEl.textContent = city;
+
+
     fetch(cityAPI)
         .then(function (response) {
             return response.json();
@@ -79,7 +90,6 @@ submitBtn.addEventListener('click', function () {
             var day2Day = data.list[9].dt_txt;
             var day2Conv = moment(day2Day).format("dddd");
             var day2Icon = day2IconEl.textContent = "https://openweathermap.org/img/wn/" + data.list[9].weather[0].icon + "@2x.png";
-
 
             day2IconEl.setAttribute("src", day2Icon);
             day1DateEl.textContent = day2Conv;
@@ -158,9 +168,20 @@ submitBtn.addEventListener('click', function () {
         }).then(function (data) {
             var uv = data.value;
             var uvColorEl = document.querySelector('#uv-color');
-
+  
             uvColorEl.textContent = uv;
-            uvColorEl.setAttribute("uv", uv);
+
+            if (uv > 11) {
+                uvColorEl.setAttribute('class', 'violet');
+            } else if (uv > 8 && uv < 11) {
+                uvColorEl.setAttribute('class', 'red');
+            } else if (uv > 6 && uv < 8 + uv) {
+                uvColorEl.setAttribute('class', 'orange');
+            } else if (uv > 3 && uv < 6 + uv) {
+                uvColorEl.setAttribute('class', 'yellow');
+            } else {
+                uvColorEl.setAttribute('class', 'green');
+            }            
         })
 });
 
