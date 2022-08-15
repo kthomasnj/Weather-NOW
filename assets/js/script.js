@@ -10,24 +10,24 @@ var cityLonEl = document.querySelector('#city-lon');
 var cityLonVal = document.querySelector('#city-lon').value;
 var cityLonAttr = cityLonEl.getAttribute("lon");
 var currentWeatherApi = `https://api.openweathermap.org/data/2.5/forecast?lat=${cityLatVal}&lon=${cityLonVal}&units=imperial&appid=${ApiKey}`;
+var resetScoresBtn = document.querySelector("#clear");
+var recentSearchesEl = document.querySelector('#searches');
+var storedSearches = JSON.parse(localStorage.getItem('searches') || "[]");
 
 
 submitBtn.addEventListener('click', function () {
     var city = document.querySelector('#city').value;
     var cityLat = document.querySelector('#city-lat');
+    var cityLatVal = document.querySelector('#city-lat').value;
     var cityLon = document.querySelector('#city-lon');
+    var cityLonVal = document.querySelector('#city-lon').value;
     var cityAPI = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5&appid=" + ApiKey;
 
-    //Save to favorites
+    if (city === "") {
+        alert("Search Field cannot be blank");
 
-    var recentSearches = document.querySelector('#searches');
-    var citySearchEl = document.createElement('li');
-
-    recentSearches.appendChild(citySearchEl);
-    citySearchEl.setAttribute('class', 'btn btn-primary m-1');
-    citySearchEl.setAttribute('city', city);
-    citySearchEl.textContent = city;
-
+        return
+    }
 
     fetch(cityAPI)
         .then(function (response) {
@@ -148,6 +148,24 @@ submitBtn.addEventListener('click', function () {
             day1WindEl.textContent = "Wind: " + data.list[36].wind.speed + " MPH";
             day1HumidEl.textContent = "Humidity: " + data.list[36].main.humidity + " %";
 
+            //Save to favorites    
+
+            var recentSearches = document.querySelector('#searches');
+            var citySearchEl = document.createElement('li');
+            var citySearches = JSON.parse(localStorage.getItem("searches") || "[]");
+
+            recentSearches.appendChild(citySearchEl);
+            citySearchEl.setAttribute('class', 'btn btn-primary m-1');
+            citySearchEl.setAttribute('city', city);
+            citySearchEl.textContent = city;
+
+            //Save to local storage
+
+            console.log(cityLatVal);
+
+            citySearches.push({ city: city, lat: cityLatVal, lon: cityLonVal });
+            localStorage.setItem("searches", JSON.stringify(citySearches));
+
             // Write City Weather Icon
 
             var cityIconEl = document.querySelector('#city-info img');
@@ -168,7 +186,7 @@ submitBtn.addEventListener('click', function () {
         }).then(function (data) {
             var uv = data.value;
             var uvColorEl = document.querySelector('#uv-color');
-  
+
             uvColorEl.textContent = uv;
 
             if (uv > 11) {
@@ -181,8 +199,34 @@ submitBtn.addEventListener('click', function () {
                 uvColorEl.setAttribute('class', 'yellow');
             } else {
                 uvColorEl.setAttribute('class', 'green');
-            }            
+            }
         })
 });
 
+//Print Favorites to HTML
+
+function showStoredSearches() {
+    for (var i = 0; i < storedSearches.length; i++) {
+        var createELLi = document.createElement('li')
+        createELLi.setAttribute("class", "btn btn-primary m-1");
+        createELLi.setAttribute("lat", storedSearches[i].lat);
+        createELLi.setAttribute("lon", storedSearches[i].lon);
+        createELLi.textContent = storedSearches[i].city;
+        recentSearchesEl.appendChild(createELLi);
+    }
+}
+
+
+// favCreateEl.textContent = playerCredentials + ": " + currentScoreStorage;
+
+// resultsSpan.appendChild(createELLi2);
+
+//Clear Favorites Button
+
+resetScoresBtn.addEventListener("click", function (event) {
+    recentSearchesEl.textContent = " ";
+    localStorage.removeItem("searches");
+})
+
 timeEl.textContent = currentTime;
+showStoredSearches();
