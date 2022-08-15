@@ -1,4 +1,4 @@
-var ApiKey = "";
+var apiKey = "";
 var submitBtn = document.querySelector('#submit-button');
 var cityMain = document.querySelector('#city-main');
 var timeEl = document.querySelector('#current-date');
@@ -9,19 +9,42 @@ var cityLatAttr = cityLatEl.getAttribute("lat");
 var cityLonEl = document.querySelector('#city-lon');
 var cityLonVal = document.querySelector('#city-lon').value;
 var cityLonAttr = cityLonEl.getAttribute("lon");
-var currentWeatherApi = `https://api.openweathermap.org/data/2.5/forecast?lat=${cityLatVal}&lon=${cityLonVal}&units=imperial&appid=${ApiKey}`;
+var currentWeatherApi = `https://api.openweathermap.org/data/2.5/forecast?lat=${cityLatVal}&lon=${cityLonVal}&units=imperial&appid=${apiKey}`;
 var resetScoresBtn = document.querySelector("#clear");
 var recentSearchesEl = document.querySelector('#searches');
 var storedSearches = JSON.parse(localStorage.getItem('searches') || "[]");
 
+// Event listener to recall recent search information
 
-submitBtn.addEventListener('click', function () {
+recentSearchesEl.addEventListener("click", function (event) {
+    var element = event.target;
+    var storedLat = element.getAttribute('lat');  
+    var storedLon = element.getAttribute('lon');  
+    var cityLat = document.querySelector('#city-lat');
+    var cityLon = document.querySelector('#city-lon');
+    var city = document.querySelector('#city');
+    var cityName = element.textContent;
+
+    city.setAttribute('value', cityName);
+    cityLat.setAttribute('value', storedLat);
+    cityLon.setAttribute('value', storedLon);
+
+    return citySearch(storedLat,storedLon)
+})
+
+// Event listener to make initial search
+
+submitBtn.addEventListener("click", function () {
+    citySearch();    
+})
+
+function citySearch(lat,lon) {
     var city = document.querySelector('#city').value;
     var cityLat = document.querySelector('#city-lat');
-    var cityLatVal = document.querySelector('#city-lat').value;
+    var cityLatVal = "";
     var cityLon = document.querySelector('#city-lon');
-    var cityLonVal = document.querySelector('#city-lon').value;
-    var cityAPI = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5&appid=" + ApiKey;
+    var cityLonVal = "";
+    var cityAPI = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5&appid=" + apiKey;
 
     if (city === "") {
         alert("Search Field cannot be blank");
@@ -42,7 +65,7 @@ submitBtn.addEventListener('click', function () {
             var cityLonEl = document.querySelector('#city-lon');
             var cityLatAttr = cityLatEl.getAttribute("lat");
             var cityLonAttr = cityLonEl.getAttribute("lon");
-            var currentWeatherApi = `https://api.openweathermap.org/data/2.5/forecast?lat=${cityLatAttr}&lon=${cityLonAttr}&units=imperial&appid=${ApiKey}`;
+            var currentWeatherApi = `https://api.openweathermap.org/data/2.5/forecast?lat=${cityLatAttr}&lon=${cityLonAttr}&units=imperial&appid=${apiKey}`;
 
             return fetch(currentWeatherApi);
         })
@@ -60,7 +83,6 @@ submitBtn.addEventListener('click', function () {
             weatherTemp1El.textContent = "Temperture: " + data.list[0].main.temp + String.fromCharCode(176) + "F";
             weatherWind1El.textContent = "Wind: " + data.list[0].wind.speed + " MPH";
             weatherHum1El.textContent = "Humidity: " + data.list[0].main.humidity + " %";
-            // weatherUv1El.textContent = "UV Index: " + data.list[0].weather[0].id
 
             // Five-Day Forecast
             //Day 1
@@ -148,24 +170,6 @@ submitBtn.addEventListener('click', function () {
             day1WindEl.textContent = "Wind: " + data.list[36].wind.speed + " MPH";
             day1HumidEl.textContent = "Humidity: " + data.list[36].main.humidity + " %";
 
-            //Save to favorites    
-
-            var recentSearches = document.querySelector('#searches');
-            var citySearchEl = document.createElement('li');
-            var citySearches = JSON.parse(localStorage.getItem("searches") || "[]");
-
-            recentSearches.appendChild(citySearchEl);
-            citySearchEl.setAttribute('class', 'btn btn-primary m-1');
-            citySearchEl.setAttribute('city', city);
-            citySearchEl.textContent = city;
-
-            //Save to local storage
-
-            console.log(cityLatVal);
-
-            citySearches.push({ city: city, lat: cityLatVal, lon: cityLonVal });
-            localStorage.setItem("searches", JSON.stringify(citySearches));
-
             // Write City Weather Icon
 
             var cityIconEl = document.querySelector('#city-info img');
@@ -177,7 +181,7 @@ submitBtn.addEventListener('click', function () {
             var cityLonEl = document.querySelector('#city-lon');
             var cityLatAttr = cityLatEl.getAttribute("lat");
             var cityLonAttr = cityLonEl.getAttribute("lon");
-            var uvIndexApi = `https://api.openweathermap.org/data/2.5/uvi?lat=${cityLatAttr}&lon=${cityLonAttr}&appid=${ApiKey}`;
+            var uvIndexApi = `https://api.openweathermap.org/data/2.5/uvi?lat=${cityLatAttr}&lon=${cityLonAttr}&appid=${apiKey}`;
 
             return fetch(uvIndexApi);
         })
@@ -201,7 +205,28 @@ submitBtn.addEventListener('click', function () {
                 uvColorEl.setAttribute('class', 'green');
             }
         })
-});
+
+        return saveToMemory(city);
+};
+
+//Save to favorites    3
+
+function saveToMemory(city) {
+
+var recentSearches = document.querySelector('#searches');
+var citySearchEl = document.createElement('li');
+var citySearches = JSON.parse(localStorage.getItem("searches") || "[]");
+
+recentSearches.appendChild(citySearchEl);
+citySearchEl.setAttribute('class', 'btn btn-primary m-1');
+citySearchEl.setAttribute('city', city);
+citySearchEl.textContent = city;
+
+//Save to local storage
+
+citySearches.push({ city: city, lat: cityLatVal, lon: cityLonVal });
+localStorage.setItem("searches", JSON.stringify(citySearches));
+}
 
 //Print Favorites to HTML
 
