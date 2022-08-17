@@ -22,19 +22,19 @@
         <aside class="mx-5 d-flex flex-column">
             <h2>Search:</h2>
             <input id="city" class="m-2 p-2" placeholder="City">
-            <button class="m-2 btn btn-secondary btn-lg" id="submit-button">SEARCH</button>
+            <div id="city-lat"></div>
+            <div class="city lon"></div>
+            <button class="m-2 btn btn-secondary btn-lg align-self-center" id="submit-button">SEARCH</button>
             <span id="cities" class="m-2"></span>
-            <input id="city-lat" type="text" class="m-2 p-1" placeholder="Latitude">
-            <input id="city-lon" type="text" class="m-2 p-1" placeholder="Longitude">
             <hr>
             <h2 class="text-center">Recent Searches</h2>
             <ul id="searches" class="d-flex flex-column"></ul>
-            <div class="align-self-end">
-                <button id="clear" class="btn btn-secondary btn-lg">CLEAR SEARCHES</button>
+            <div class="align-self-center">
+                <button id="clear" class="btn btn-secondary btn-lg align-self-center">CLEAR SEARCHES</button>
             </div>
         </aside>
         <section class="flex-grow-1">
-            <section class="d-flex justify-content-between align-items-center" id="city-info">
+            <section class="d-flex justify-content-between" id="city-info">
                 <h1 id="city-main">City</h1>
                 <img src=""></img>
             </section>

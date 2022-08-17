@@ -1,52 +1,38 @@
-var apiKey = "";
+var apiKey = "ee55154c3a2d2b5c0d0433b9d353b36d";
 var submitBtn = document.querySelector('#submit-button');
 var cityMain = document.querySelector('#city-main');
 var timeEl = document.querySelector('#current-date');
 var currentTime = moment().format('L');
-var cityLatEl = document.querySelector('#city-lat');
-var cityLatVal = document.querySelector('#city-lat').value;
-var cityLatAttr = cityLatEl.getAttribute("lat");
-var cityLonEl = document.querySelector('#city-lon');
-var cityLonVal = document.querySelector('#city-lon').value;
-var cityLonAttr = cityLonEl.getAttribute("lon");
-var currentWeatherApi = `https://api.openweathermap.org/data/2.5/forecast?lat=${cityLatVal}&lon=${cityLonVal}&units=imperial&appid=${apiKey}`;
 var resetScoresBtn = document.querySelector("#clear");
 var recentSearchesEl = document.querySelector('#searches');
 var storedSearches = JSON.parse(localStorage.getItem('searches') || "[]");
+var globalcityLat = "";
+var globalcityLon = "";
+var cityName = "";
+
 
 // Event listener to recall recent search information
 
 recentSearchesEl.addEventListener("click", function (event) {
     var element = event.target;
-    var storedLat = element.getAttribute('lat');  
-    var storedLon = element.getAttribute('lon');  
-    var cityLat = document.querySelector('#city-lat');
-    var cityLon = document.querySelector('#city-lon');
-    var city = document.querySelector('#city');
-    var cityName = element.textContent;
+    var storedCityName = element.textContent;
 
-    city.setAttribute('value', cityName);
-    cityLat.setAttribute('value', storedLat);
-    cityLon.setAttribute('value', storedLon);
-
-    return citySearch(storedLat,storedLon)
+    citySearch();
 })
 
 // Event listener to make initial search
 
 submitBtn.addEventListener("click", function () {
-    citySearch();    
+    citySearch();
+    saveToRecentSearches();
+    savetoLocalStorage()
 })
 
-function citySearch(lat,lon) {
-    var city = document.querySelector('#city').value;
-    var cityLat = document.querySelector('#city-lat');
-    var cityLatVal = "";
-    var cityLon = document.querySelector('#city-lon');
-    var cityLonVal = "";
-    var cityAPI = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5&appid=" + apiKey;
+function citySearch() {
+    cityName = document.querySelector('#city').value;
+    var cityAPI = "https://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=5&appid=" + apiKey;
 
-    if (city === "") {
+    if (cityName === "") {
         alert("Search Field cannot be blank");
 
         return
@@ -56,16 +42,12 @@ function citySearch(lat,lon) {
         .then(function (response) {
             return response.json();
         }).then(function (data) {
+            cityLat = data[0].lat;
+            cityLon = data[0].lon;
+
+
             cityMain.textContent = data[0].name + ", " + data[0].state;
-            cityLat.setAttribute("value", data[0].lat);
-            cityLat.setAttribute("lat", data[0].lat);
-            cityLon.setAttribute("value", data[0].lon);
-            cityLon.setAttribute("lon", data[0].lon);
-            var cityLatEl = document.querySelector('#city-lat');
-            var cityLonEl = document.querySelector('#city-lon');
-            var cityLatAttr = cityLatEl.getAttribute("lat");
-            var cityLonAttr = cityLonEl.getAttribute("lon");
-            var currentWeatherApi = `https://api.openweathermap.org/data/2.5/forecast?lat=${cityLatAttr}&lon=${cityLonAttr}&units=imperial&appid=${apiKey}`;
+            var currentWeatherApi = `https://api.openweathermap.org/data/2.5/forecast?lat=${cityLat}&lon=${cityLon}&units=imperial&appid=${apiKey}`;
 
             return fetch(currentWeatherApi);
         })
@@ -174,15 +156,10 @@ function citySearch(lat,lon) {
 
             var cityIconEl = document.querySelector('#city-info img');
             var cityIcon = cityIconEl.textContent = "https://openweathermap.org/img/wn/" + data.list[0].weather[0].icon + "@2x.png";
+            var uvIndexApi = `https://api.openweathermap.org/data/2.5/uvi?lat=${data.city.coord.lat}&lon=${data.city.coord.lat}&appid=${apiKey}`;
 
-            cityIconEl.setAttribute("src", cityIcon);
-
-            var cityLatEl = document.querySelector('#city-lat');
-            var cityLonEl = document.querySelector('#city-lon');
-            var cityLatAttr = cityLatEl.getAttribute("lat");
-            var cityLonAttr = cityLonEl.getAttribute("lon");
-            var uvIndexApi = `https://api.openweathermap.org/data/2.5/uvi?lat=${cityLatAttr}&lon=${cityLonAttr}&appid=${apiKey}`;
-
+            cityIconEl.setAttribute("src", cityIcon); 
+            
             return fetch(uvIndexApi);
         })
         .then(function (response) {
@@ -192,41 +169,48 @@ function citySearch(lat,lon) {
             var uvColorEl = document.querySelector('#uv-color');
 
             uvColorEl.textContent = uv;
-
+            
             if (uv > 11) {
-                uvColorEl.setAttribute('class', 'violet');
+                uvColorEl.setAttribute('class', 'violet rounded-3');
             } else if (uv > 8 && uv < 11) {
-                uvColorEl.setAttribute('class', 'red');
+                uvColorEl.setAttribute('class', 'red rounded-3');
             } else if (uv > 6 && uv < 8 + uv) {
-                uvColorEl.setAttribute('class', 'orange');
+                uvColorEl.setAttribute('class', 'orange rounded-3');
             } else if (uv > 3 && uv < 6 + uv) {
-                uvColorEl.setAttribute('class', 'yellow');
+                uvColorEl.setAttribute('class', 'yellow rounded-3');
             } else {
-                uvColorEl.setAttribute('class', 'green');
+                uvColorEl.setAttribute('class', 'green rounded-3');
             }
         })
-
-        return saveToMemory(city);
 };
 
-//Save to favorites    3
+//Save to Recent Searches
 
-function saveToMemory(city) {
+function saveToRecentSearches() {
+    var recentSearches = document.querySelector('#searches');
+    var createCityLi = document.createElement('li');
 
-var recentSearches = document.querySelector('#searches');
-var citySearchEl = document.createElement('li');
-var citySearches = JSON.parse(localStorage.getItem("searches") || "[]");
+    if (cityName === "" || cityLat === "" || cityLon === "") {
+        return
+    }      
 
-recentSearches.appendChild(citySearchEl);
-citySearchEl.setAttribute('class', 'btn btn-primary m-1');
-citySearchEl.setAttribute('city', city);
-citySearchEl.textContent = city;
+    recentSearches.appendChild(createCityLi);
+    createCityLi.setAttribute('class', 'btn btn-primary m-1');
+    createCityLi.textContent = cityName;
+}
 
 //Save to local storage
 
-citySearches.push({ city: city, lat: cityLatVal, lon: cityLonVal });
-localStorage.setItem("searches", JSON.stringify(citySearches));
+function savetoLocalStorage() {
+    if (cityLat === "" || cityLon === "") {
+        alert("Lat or Lon is blank");
+        return
+    } 
+
+    storedSearches.push({ city: cityName, lat: cityLat, lon: cityLon });
+    localStorage.setItem("searches", JSON.stringify(storedSearches));
 }
+
 
 //Print Favorites to HTML
 
@@ -252,6 +236,8 @@ resetScoresBtn.addEventListener("click", function (event) {
     recentSearchesEl.textContent = " ";
     localStorage.removeItem("searches");
 })
+
+console.log(cityLat, cityLon)
 
 timeEl.textContent = currentTime;
 showStoredSearches();

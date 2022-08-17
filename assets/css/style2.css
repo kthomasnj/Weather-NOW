@@ -78,3 +78,18 @@ aside {
     list-style: none;
     background-color: black;
 }
+
+#city, #city-lat, #city-lon {
+    max-width: 100%;
+    min-width: 50%;
+    align-self: center;
+}
+
+#searches {
+    padding: 0;
+}
+
+/* #search-item {
+    max-width: 100%;
+    min-width: 50%;
+} */
